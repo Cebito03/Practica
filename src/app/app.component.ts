@@ -1,13 +1,21 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ElementService } from './element.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
+  selector: 'app.component',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls:['./app.component.scss']
 })
+
 export class AppComponent {
   title = 'Practica';
+  datos: any[] = [];
+
+  constructor(private elementService: ElementService){}
+  ngOnInit(): void {
+    this.elementService.getDatos().subscribe(
+      (datos) => this.datos = datos,
+      (error) => console.error('Error con los datos', error)
+    );
+  }
 }
